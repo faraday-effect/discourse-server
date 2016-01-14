@@ -12,11 +12,9 @@
     "gulp": "^3.9.0",
     "gulp-debug": "^2.1.2",
     "gulp-markdown": "^1.2.0",
-    "gulp-wrap": "^0.11.0"
-  },
-  "dependencies": {
+    "gulp-wrap": "^0.11.0",
     "handlebars": "^4.0.5",
-    "stream-buffers": "^3.0.0",
-    "streamifier": "^0.1.1"
-  }
+    "highlight.js": "^9.1.0"
+  },
+  "dependencies": {}
 }
