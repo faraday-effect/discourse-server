@@ -9,11 +9,11 @@ Here are some interesting factoids about the course
 
 Here's an illustration of the cover of the textbook.
 
-[//]: # "<Slide>"
+<div class="slide">
 
-![CSAPP Cover](static/csapp.jpg)
+![CSAPP Cover](../static/csapp.jpg)
 
-[//]: # "</Slide>"
+</div>
 
 It's really quite a delightful text.
 You should all read it carefully.

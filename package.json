@@ -10,10 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-debug": "^2.1.2",
     "gulp-markdown": "^1.2.0",
     "gulp-wrap": "^0.11.0"
   },
   "dependencies": {
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "stream-buffers": "^3.0.0",
+    "streamifier": "^0.1.1"
   }
 }
