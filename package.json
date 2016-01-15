@@ -16,5 +16,7 @@
     "handlebars": "^4.0.5",
     "highlight.js": "^9.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }

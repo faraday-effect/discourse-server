@@ -10,27 +10,50 @@ var through = require('through2');
 
 var hljs = require('highlight.js');
 
-function filterVisuals () {
+const VISUAL_ENV = '#+VISUAL';
+const NOTES_ENV = '#+NOTES';
+const ANY_ENV = '#+';
+
+const env_details = { };
+env_details[VISUAL_ENV] = { start_block: '<section>', end_block: '</section>' };
+env_details[NOTES_ENV] = { start_block: '', end_block: '' };
+
+function extractEnvironment (env) {
     return through.obj(function (file, encoding, callback) {
-        var in_visual = false;
+        var inEnv = false;
+        var inputLines = file.contents.toString().split(/\r\n?|\n/);
+        var outputLines = [ ];
 
-        var inLines = file.contents.toString().split(/\r\n?|\n/);
-        var outLines = [ ];
-
-        inLines.forEach(function (line) {
-            if (line.indexOf('<div') === 0) {
-                in_visual = true;
-            } else if (line.indexOf('</div>') === 0) {
-                outLines.push(line);
-                in_visual = false;
+        inputLines.forEach(function (line) {
+            console.log(line, env);
+            if (line.indexOf(env) === 0) {
+                // Beginning of this environment
+                if (inEnv) {
+                    // Already in the environment; stop the current block
+                    outputLines.push(env_details[env].end_block);
+                }
+                inEnv = true;
+                outputLines.push(env_details[env].start_block);
+                return;
+            } else if (line.indexOf(ANY_ENV) === 0) {
+                // End of environment
+                inEnv = false;
+                outputLines.push(env_details[env].end_block);
+                return;
             }
 
-            if (in_visual) {
-                outLines.push(line);
+            if (inEnv) {
+                // Within environment
+                outputLines.push(line);
             }
         });
 
-        file.contents = new Buffer(outLines.join('\n'));
+        if (inEnv) {
+            // Still in environment at end of input
+            outputLines.push(env_details[env].end_block);
+        }
+
+        file.contents = new Buffer(outputLines.join('\n'));
         callback(null, file);
     });
 }
@@ -50,7 +73,7 @@ gulp.task('notes', function() {
 
 gulp.task('visuals', function() {
     return gulp.src('src/*.md')
-        .pipe(filterVisuals())
+        .pipe(extractEnvironment(VISUAL_ENV))
         .pipe(markdown(markedOptions))
         .pipe(wrap({ src: 'src/template/visuals.hbs' }, null, { engine: 'handlebars' }))
         .pipe(gulp.dest('build/visuals'))
