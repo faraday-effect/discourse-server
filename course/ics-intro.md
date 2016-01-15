@@ -14,7 +14,7 @@ Here's an illustration of the cover of the textbook.
 #+VISUAL
 
 ### This is our textbook's cover!
-![CSAPP Cover](../static/csapp.jpg)
+![CSAPP Cover](/images/csapp.jpg)
 
 #+NOTES
 
@@ -24,7 +24,7 @@ It's really quite a delightful text.
 Here's a little code for your consumption.
 ```javascript
 gulp.task('markdown', function() {
-    return gulp.src('src/*.md')
+    return gulp.src(course)
         .pipe(markdown())
         .pipe(gulp.dest('build'))
 });

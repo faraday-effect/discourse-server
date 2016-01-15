@@ -25,7 +25,6 @@ function extractEnvironment (env) {
         var outputLines = [ ];
 
         inputLines.forEach(function (line) {
-            console.log(line, env);
             if (line.indexOf(env) === 0) {
                 // Beginning of this environment
                 if (inEnv) {
@@ -65,26 +64,26 @@ const markedOptions = {
 };
 
 gulp.task('notes', function() {
-    return gulp.src('src/*.md')
+    return gulp.src('course/*.md')
         .pipe(markdown(markedOptions))
-        .pipe(wrap({ src: 'src/template/notes.hbs' }, null, { engine: 'handlebars' }))
+        .pipe(wrap({ src: 'templates/notes.hbs' }, null, { engine: 'handlebars' }))
         .pipe(gulp.dest('build/notes'))
 });
 
 gulp.task('visuals', function() {
-    return gulp.src('src/*.md')
+    return gulp.src('course/*.md')
         .pipe(extractEnvironment(VISUAL_ENV))
         .pipe(markdown(markedOptions))
-        .pipe(wrap({ src: 'src/template/visuals.hbs' }, null, { engine: 'handlebars' }))
+        .pipe(wrap({ src: 'templates/visuals.hbs' }, null, { engine: 'handlebars' }))
         .pipe(gulp.dest('build/visuals'))
 });
 
 gulp.task('images', function () {
-    return gulp.src('src/static/*.jpg')
-        .pipe(gulp.dest('build/static'))
+    return gulp.src('course/images/*.jpg')
+        .pipe(gulp.dest('build/images'))
 });
 
 gulp.task('default', ['notes', 'visuals', 'images']);
 
-// gulp.watch('src/*.md', ['notes', 'visuals']);
-// gulp.watch('src/static/*.jpg', ['images']);
+// gulp.watch('course/*.md', ['notes', 'visuals']);
+// gulp.watch('course/images/*.jpg', ['images']);
