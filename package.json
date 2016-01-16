@@ -12,11 +12,11 @@
     "gulp": "^3.9.0",
     "gulp-debug": "^2.1.2",
     "gulp-markdown": "^1.2.0",
-    "gulp-wrap": "^0.11.0",
-    "handlebars": "^4.0.5",
-    "highlight.js": "^9.1.0"
+    "gulp-wrap": "^0.11.0"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "hbs": "^4.0.0",
+    "highlight.js": "^9.1.0"
   }
 }

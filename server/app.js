@@ -10,6 +10,8 @@ var app = express();
 
 // Configuration
 app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 // Middleware
 app.use(logger('dev'));
@@ -17,28 +19,42 @@ app.use(express.static(path.join(__dirname, '../build/public')));
 app.use('/revealjs', express.static(path.join(__dirname, 'vendor/revealjs')));
 
 // Routes
-app.get('/', function(req, res) {
-    res.type('text/plain');
-    res.send('Hello');
+app.get('/notes/:name', function(req, res) {
+    res.sendFile(path.join(__dirname, '../build/notes', req.params.name + '.html'));
 });
 
-// 404
-app.use(function(req, res) {
-    res.type('text/plain');
-    res.status(404);
-    res.send('404 - Not found');
+app.get('/visuals/:name', function(req, res) {
+    res.sendFile(path.join(__dirname, '../build/visuals', req.params.name + '.html'));
 });
 
-// 500
+// Catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// Development error handler; print stack trace.
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// Production error handler; no stack trace leaked to user.
 app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    rsp.type('text/plain');
-    rsp.status(500);
-    rsp.send('500 - Server error');
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 // Run the server.
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port'));
 });
-
