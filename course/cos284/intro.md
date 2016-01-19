@@ -1,19 +1,22 @@
 #+TITLE: Introduction to ICS
 
-# Introduction to Computer Systems
+== Introduction to Computer Systems
 
 With your host, Dr. Tom Nurkkala
 
 Here are some interesting factoids about the course
-1. It's fun
-1. You will have a great time
-1. There will be a ton of work to do
+. It's fun
+. You will have a great time
+. There will be a ton of work to do
 
 Here's an illustration of the cover of the textbook.
 
 #+VISUAL
 
-### This is our textbook's cover!
+== In Peru
+
+Fred really _lives_ in Perul
+
 ![CSAPP Cover](/images/csapp.jpg)
 
 #+NOTES
@@ -21,6 +24,7 @@ Here's an illustration of the cover of the textbook.
 It's really quite a delightful text.
 - You should all read it carefully.
 
+.A Code Block
 Here's a little code for your consumption.
 ```javascript
 gulp.task('markdown', function() {
