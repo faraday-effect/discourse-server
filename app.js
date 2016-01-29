@@ -17,7 +17,6 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, '../build/public')));
 app.use('/revealjs', express.static(path.join(__dirname, 'vendor/revealjs')));
-app.use('/images', express.static(path.join(__dirname, 'course/cos284/images')));
 
 // Routes
 app.get('/:course/notes/:name', function(req, res) {
@@ -26,6 +25,10 @@ app.get('/:course/notes/:name', function(req, res) {
 
 app.get('/:course/visuals/:name', function(req, res) {
     res.sendFile(path.join(__dirname, 'course', req.params.course, 'visuals', req.params.name + '.html'));
+});
+
+app.get('/:course/images/:file', function(req, res) {
+    res.sendFile(path.join(__dirname, 'course', req.params.course, 'images', req.params.file));
 });
 
 // Catch 404 and forward to error handler
