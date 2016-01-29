@@ -7,6 +7,8 @@ var path = require('path');
 var logger = require('morgan');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // Configuration
 app.set('port', process.env.PORT || 3000);
@@ -58,7 +60,21 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// Handle socket.io
+io.on('connection', function(socket) {
+    console.log('Socket connected');
+
+    socket.on('disconnect', function () {
+        console.log('Socket disconnected');
+    });
+
+    socket.on('request-visual', function(id) {
+        console.log('Request for visual', id);
+        io.emit('show-visual', id);
+    });
+});
+
 // Run the server.
-app.listen(app.get('port'), function() {
+http.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' + app.get('port'));
 });
