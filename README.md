@@ -1,3 +1,3 @@
-# Discourse Project
+# Discourse Server
 
-Something better for course notes and classroom presentation.
+Server for Discourse presentations
