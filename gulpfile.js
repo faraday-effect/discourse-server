@@ -30,4 +30,3 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('default', ['browser-sync'], function () {
 });
-
