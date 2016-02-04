@@ -21,16 +21,19 @@ app.use(express.static(path.join(__dirname, '../build/public')));
 app.use('/revealjs', express.static(path.join(__dirname, 'vendor/revealjs')));
 
 // Routes
-app.get('/:course/notes/:name', function(req, res) {
-    res.sendFile(path.join(__dirname, 'course', req.params.course, 'notes', req.params.name + '.html'));
+app.get('/:course/:topic/:type', function(req, res) {
+    res.sendFile(path.join(__dirname, 'course',
+        req.params.course,
+        req.params.topic,
+        req.params.topic + '-' + req.params.type + '.html'));
 });
 
-app.get('/:course/visuals/:name', function(req, res) {
-    res.sendFile(path.join(__dirname, 'course', req.params.course, 'visuals', req.params.name + '.html'));
-});
-
-app.get('/:course/images/:file', function(req, res) {
-    res.sendFile(path.join(__dirname, 'course', req.params.course, 'images', req.params.file));
+app.get('/:course/:topic/images/:file', function(req, res) {
+    res.sendFile(path.join(__dirname, 'course',
+        req.params.course,
+        req.params.topic,
+        'images',
+        req.params.file));
 });
 
 // Catch 404 and forward to error handler
